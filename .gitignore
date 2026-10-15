@@ -1,0 +1,9 @@
+node_modules/
+.env
+build/
+*.log
+.cache/
+.local/
+connection.local.json
+agent-kit/**/connection.json
+release/

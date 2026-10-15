@@ -1,0 +1,32 @@
+{
+  "name": "super-cocos-creator-mcp",
+  "version": "0.7.2",
+  "private": true,
+  "type": "module",
+  "description": "面向 Cocos Creator 3.8 的 2D/3D 游戏开发 MCP 插件：场景、节点、组件、UI、预制体、脚本与动画编辑，本地资源库检索、AI 素材描述、预览截图、运行验证与构建；支持 HTTP、WebSocket 和多智能体接入。",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "client": "node examples/mcp-client.js",
+    "build:creator": "node scripts/build-creator.js",
+    "pretest": "npm run build:creator"
+  },
+  "dependencies": {
+    "@iarna/toml": "^2.2.5",
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "fflate": "^0.8.3",
+    "image-size": "^2.0.4",
+    "jsonc-parser": "^3.3.1",
+    "sql.js": "^1.15.0",
+    "ws": "8.22.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@electron/asar": "^3.4.1",
+    "esbuild": "^0.28.2"
+  },
+  "author": "leeming"
+}

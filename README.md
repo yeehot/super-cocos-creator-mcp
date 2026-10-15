@@ -1,60 +1,56 @@
-# super-cocos-creator-mcp
+# super-cocos-creator-mcp · 智能体接入与技能
 
-作者：**leeming** · 当前版本：**v0.7.2** · 适配 Cocos Creator 3.8.x。
+作者：**leeming** · 版本：**v0.7.2**。
 
-让 AI 参与 2D / 3D 游戏设计与开发：搭建场景、制作 UI、编写玩法脚本、编辑动画，并通过预览、交互输入、运行状态和日志持续检查结果。
+本仓库仅提供智能体客户端接入文件、配置模板、桥接示例和技能说明。**Cocos Creator 服务端插件为单独销售的商业产品，本仓库不包含插件安装包、服务端源码或完整产品源码压缩包。**
 
-## 下载
+## 下载与安装
 
-- [Creator 插件安装包](super-cocos-creator-mcp.zip)：在 Creator 扩展管理器安装，无需安装 npm 依赖。
-- [多智能体配置与技能包](super-cocos-creator-mcp-agent-kit.zip)：包含统一技能、常用客户端配置模板、生成脚本及 stdio 桥接。
-- [完整源码包](super-cocos-creator-mcp-github-source.zip)：源码、测试、构建脚本、文档及图文介绍，解压后开发。
-- [使用方法](usage.md)
-- [技能说明 SKILL.md](SKILL.md)
+- [下载智能体接入与技能包](super-cocos-creator-mcp-agent-kit.zip)
+- [查看技能 SKILL.md](SKILL.md)
+- [使用说明](usage.md)
 
-本仓库当前以可下载安装包与完整源码压缩包分发。开发时请先解压源码包，在含 package.json 的源码目录执行 npm ci、npm test、npm run build:creator；不要直接在仅下载了仓库分发文件的目录运行构建。
+接入包解压后包括：
 
-## 安装使用
+- `skills/super-cocos-creator-mcp/SKILL.md`：智能体技能。
+- `templates/`：Codex、Cursor、VS Code、Claude Code、Claude Desktop 等配置模板。
+- `scripts/configure.mjs`：根据本机 Creator 连接信息生成配置。
+- `scripts/http-stdio.mjs`：仅支持 stdio 的 MCP 客户端使用的 HTTP 桥接。
+- `examples/websocket-client.mjs`：自研客户端 WebSocket 接入示例。
+- `README.md` 与 `AGENTS.md`：客户端与智能体安装说明。
 
-1. 下载插件 ZIP，在 Creator 的“扩展 → 扩展管理器”中安装为项目扩展并启用。旧版 codex-cocos-creator 应先禁用。
-2. 打开“扩展 → Super Cocos Creator MCP”，点击“安装 Codex 连接与技能”或“安装 Cursor 连接与技能”。
-3. 重启对应客户端，保持 Creator 项目打开。
-4. 发送：
+## 使用前提
 
-> 使用 super-cocos-creator-mcp 技能，确认当前 Creator 项目并查看场景层级，暂时不要修改。
+1. 已另行获得并安装商业 Creator 插件，在 Cocos Creator 3.8.x 启用并打开项目。
+2. 客户端和 Creator 在同一台电脑运行。
+3. 从 Creator 插件复制或导出你自己的连接地址与 Token。公开模板只有占位值，不能直接连接。
 
-其他客户端：从插件复制连接配置，在客户端导入 MCP JSON；再从接入包安装 skills/super-cocos-creator-mcp 技能文件夹。不支持技能的客户端可读取 SKILL.md 作为项目说明。MCP 连接与技能是两部分，只安装技能不能连接编辑器。
+## Codex / Cursor
 
-Forge Desk / mydesk 可使用“粘贴 MCP JSON 配置 → 保存并连接”和“导入技能文件夹”。
+如果商业插件提供“一键安装连接与技能”菜单，直接使用该入口，再重启客户端即可。也可以从本仓库下载技能包，按对应客户端的技能与 MCP 设置手动安装。
 
-## 游戏开发功能
+## Forge Desk / mydesk
 
-- 场景创建、打开、保存、切换、层级查询、撤销重做与场景脚本执行。
-- 节点 CRUD、复制、变换、搜索、批量修改、剪贴板与组件配置。
-- 玩法脚本读写、注册组件挂载、点击等事件绑定和批量事件配置。
-- JSON UI 层级构建，按钮、菜单、HUD 和对话框模板。
-- 预制体创建与实例化，部分原生应用、还原和解除关联操作。
-- 动画剪辑、轨道、关键帧、插值、切线、事件和预设；已有 Spine 动画与皮肤控制。
-- 独立游戏预览、截图、键鼠输入模拟、运行状态读取、控制台和项目日志。
-- 部分场景结构校验、结构快照比较、构建触发和任务结果查询。
-- 创作辅助：本地项目、文件夹及 ZIP 的素材检索、图片预览、标签、部分依赖分析和按需导入。
+1. 在 Creator 的“查看／复制连接配置”复制 mcpServers JSON。
+2. 在 Forge 的“添加 → 粘贴 MCP JSON 配置”中预览，再点“保存并连接”。
+3. 选择“导入技能文件夹”，导入解压后的 `skills/super-cocos-creator-mcp`。
+4. 新建任务，先调用 creator_status，确认实际连接的项目。
 
-共 **59 个 MCP 工具入口**。并非所有编辑器内部接口均已实机验证，复杂游戏需分阶段制作和验收。
+## 其他智能体
 
-## 接入方式
+下载并解压接入包，让智能体读取其中 README.md 和 AGENTS.md。使用本机连接文件生成对应客户端配置，只合并当前服务项，不覆盖其他服务。
 
-HTTP Streamable MCP 为通用入口；提供 stdio → HTTP 桥接和自定义 WebSocket 传输。客户端与 Creator 在同机运行；不同客户端支持情况需实际验收。
+HTTP 是通用接入；stdio 客户端使用桥接；WebSocket 需要客户端支持包内定义的自定义 JSON-RPC 传输。仅安装技能不会自动建立连接。
 
-插件、技能统一名称：super-cocos-creator-mcp。多项目服务名：super-cocos-creator-mcp-项目ID。
+## 开始创作
 
-**公开包不包含真实 Token。** 客户必须从自己的 Creator 生成连接配置，不能公开提交本机连接文件。
+> 使用 super-cocos-creator-mcp 技能，确认当前 Creator 项目，查看场景层级，暂时不要修改。
 
-## 能力范围
+连接成功后，可继续要求制作 2D / 3D 游戏原型、编辑 UI、编写玩法、配置动画，再通过预览截图、输入、运行状态和日志检查结果。
 
-精细模型、贴图和音效需要已有素材或其他制作工具。没有联网素材搜索、商店下载、模型 / FBX 动画自动渲染预览、包更新或共享数据库。构建依赖目标平台环境，不等于自动发布。开源许可证尚待作者选择，当前不声明 MIT 等授权。
+## 命名与隐私
 
-## 产品图文介绍
-
-![游戏创作功能介绍](super-cocos-creator-mcp-game-creation.png)
-
-图中为功能创意与流程示意，非实机效果承诺。
+- 插件与技能：`super-cocos-creator-mcp`。
+- 项目服务：`super-cocos-creator-mcp-<项目ID>`。
+- 公开包不包含真实 Token。不要提交 `connection.local.json` 或生成后的本机配置。
+- 本仓库公开接入文件不代表授权使用或再分发商业插件。
